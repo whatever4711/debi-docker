@@ -1,6 +1,13 @@
 FROM ubuntu:14.04 
 MAINTAINER Marcel Grossmann <whatever4711@gmail.com>
 
+USER root
+
+# Define which versions we need
+ENV WINE_PPA_VERSION 1:1.7.38-0ubuntu1
+ENV WINE_MONO_VERSION 4.5.6
+ENV WINE_GECKO_VERSION 2.36
+
 RUN apt-get update && apt-get install -y --no-install-recommends\
     firefox \
     curl \
@@ -18,9 +25,15 @@ RUN export uid=1000 gid=1000 && \
 RUN dpkg --add-architecture i386 \
     && apt-get update -y \
     && apt-get install -y --no-install-recommends \
-        wine1.6 \
-        winetricks \
+        wine1.7=$WINE_PPA_VERSION \
+        wine-gecko$WINE_GECKO_VERSION:i386 \
+	wine-gecko$WINE_GECKO_VERSION:amd64 \
+	wine-mono$WINE_MONO_VERSION \
     && rm -rf /var/lib/apt/lists/*
+
+# Use latest version of winetricks from github
+RUN curl -SL 'http://winetricks.org/winetricks' -o /usr/local/bin/winetricks \
+    && chmod +x /usr/local/bin/winetricks
 
 USER developer
 ENV HOME /home/developer
