@@ -17,8 +17,12 @@ RUN apt-get install -y --no-install-recommends \
     software-properties-common \
     && add-apt-repository -y ppa:ubuntu-wine/ppa
 
+# X-Server
+RUN apt-get install -y --no-install-recommends \
+    xauth   
+
 # Replace 1000 with your user / group id
-RUN export uid=1000 gid=1000 && \
+RUN export uid=1001 gid=1001 && \
     mkdir -p /home/developer && \
     echo "developer:x:${uid}:${gid}:Developer,,,:/home/developer:/bin/bash" >> /etc/passwd && \
     echo "developer:x:${uid}:" >> /etc/group && \
