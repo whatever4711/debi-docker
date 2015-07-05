@@ -1,0 +1,9 @@
+vpn:
+  build: .
+  volumes:
+    - /tmp/.X11-unix:/tmp/.X11-unix
+  environment:
+    - DISPLAY=:0
+  command:
+    - wine
+    - /home/developer/vpnsmgr.exe
