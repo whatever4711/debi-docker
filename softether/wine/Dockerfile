@@ -11,6 +11,7 @@ ENV WINE_GECKO_VERSION 2.36
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     unzip \
+    wget \
     sudo 
 
 RUN apt-get install -y --no-install-recommends \
@@ -42,10 +43,19 @@ RUN dpkg --add-architecture i386 \
 RUN curl -SL 'http://winetricks.org/winetricks' -o /usr/local/bin/winetricks \
     && chmod +x /usr/local/bin/winetricks
 
+RUN mkdir -p /usr/share/wine/gecko \
+    && wget -P /usr/share/wine/gecko http://downloads.sourceforge.net/project/wine/Wine%20Gecko/2.36/wine_gecko-$WINE_GECKO_VERSION-x86_64.msi
+
+# Clean up
+RUN apt-get remove -y --purge software-properties-common \
+    curl \
+    wget \
+    && rm -rf /var/lib/apt/lists*
+
 USER developer
 ENV HOME /home/developer
 ADD ./vpnmanager/vpnsmgr.exe /home/developer/ 
 ADD ./vpnmanager/hamcore.se2 /home/developer/
-CMD /usr/bin/firefox
+
 
 
