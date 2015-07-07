@@ -10,8 +10,6 @@ ENV WINE_GECKO_VERSION 2.36
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
-    unzip \
-    wget \
     sudo 
 
 RUN apt-get install -y --no-install-recommends \
@@ -22,40 +20,38 @@ RUN apt-get install -y --no-install-recommends \
 RUN apt-get install -y --no-install-recommends \
     xauth   
 
-# Replace 1000 with your user / group id
-RUN export uid=1001 gid=1001 && \
-    mkdir -p /home/developer && \
-    echo "developer:x:${uid}:${gid}:Developer,,,:/home/developer:/bin/bash" >> /etc/passwd && \
-    echo "developer:x:${uid}:" >> /etc/group && \
-    echo "developer ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/developer && \
-    chmod 0440 /etc/sudoers.d/developer && \
-    chown ${uid}:${gid} -R /home/developer
-
 RUN dpkg --add-architecture i386 \
     && apt-get update -y \
     && apt-get install -y --no-install-recommends \
         wine$WINE_PPA_VERSION \
         wine-gecko$WINE_GECKO_VERSION \
-	wine-mono$WINE_MONO_VERSION \
-    && rm -rf /var/lib/apt/lists/*
+	wine-mono$WINE_MONO_VERSION 
+
+ENV GECKO_SYSTEM /usr/share/wine/gecko/wine_gecko-$WINE_GECKO_VERSION-x86_64.msi 
 
 # Use latest version of winetricks from github
 RUN curl -SL 'http://winetricks.org/winetricks' -o /usr/local/bin/winetricks \
     && chmod +x /usr/local/bin/winetricks
 
-RUN mkdir -p /usr/share/wine/gecko \
-    && wget -P /usr/share/wine/gecko http://downloads.sourceforge.net/project/wine/Wine%20Gecko/2.36/wine_gecko-$WINE_GECKO_VERSION-x86_64.msi
+ENV USER_NAME ktr
+
+# Replace 1000 with your user / group id
+RUN export uid=1000 gid=1000 && \
+    mkdir -p /home/$USER_NAME && \
+    echo "$USER_NAME:x:${uid}:${gid}:$USER_NAME,,,:/home/$USER_NAME:/bin/bash" >> /etc/passwd && \
+    echo "$USER_NAME:x:${uid}:" >> /etc/group && \
+    echo "$USER_NAME ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/$USER_NAME && \
+    chmod 0440 /etc/sudoers.d/$USER_NAME && \
+    chown ${uid}:${gid} -R /home/$USER_NAME
 
 # Clean up
 RUN apt-get remove -y --purge software-properties-common \
     curl \
-    wget \
     && rm -rf /var/lib/apt/lists*
 
-USER developer
-ENV HOME /home/developer
-ADD ./vpnmanager/vpnsmgr.exe /home/developer/ 
-ADD ./vpnmanager/hamcore.se2 /home/developer/
-
-
-
+USER $USER_NAME
+ENV HOME /home/$USER_NAME
+ENV VPN /home/$USER_NAME/vpn
+RUN cd $HOME && wine msiexec /i $GECKO_SYSTEM && mkdir $VPN 
+ADD ./vpnmanager $VPN 
+#ADD ./vpnmanager $HOME/ 

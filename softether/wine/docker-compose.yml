@@ -6,4 +6,5 @@ vpn:
     - DISPLAY=:0
   command:
     - wine
-    - /home/developer/vpnsmgr.exe
+    - /home/ktr/vpn/vpnsmgr.exe
+
