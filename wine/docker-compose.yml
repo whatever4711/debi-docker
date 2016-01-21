@@ -1,7 +1,8 @@
 vpn-client:
+# image: whatever4711/debi-wine
   build: .
   volumes:
-    - /tmp/.X11-unix:/tmp/.X11-unix
+    - /tmp/.X11-unix:/tmp/.X11-unix:ro
   environment:
     - DISPLAY=:0
   command:
@@ -11,9 +12,10 @@ vpn-client:
   net: host
 
 vpn-server:
+# image: whatever4711/debi-wine
   build: .
   volumes:
-    - /tmp/.X11-unix:/tmp/.X11-unix
+    - /tmp/.X11-unix:/tmp/.X11-unix:ro
   environment:
     - DISPLAY=:0
   command:
