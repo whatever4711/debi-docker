@@ -7,9 +7,14 @@ USER root
 ENV WINE_PPA_VERSION 1.7
 ENV WINE_MONO_VERSION 4.5.6
 ENV WINE_GECKO_VERSION 2.36
+ENV DOWNLOAD_SERVER http://www.softether-download.com/files/softether/v4.19-9599-beta-2015.10.19-tree/Windows/Admin_Tools/VPN_Server_Manager_and_Command-line_Utility_Package
+ENV SERVER softether-vpn_admin_tools-v4.19-9599-beta-2015.10.19-win32.zip
+ENV CLIENT xxx
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
+    wget \
+    unzip \
     sudo 
 
 RUN apt-get install -y --no-install-recommends \
@@ -53,5 +58,8 @@ USER $USER_NAME
 ENV HOME /home/$USER_NAME
 ENV VPN /home/$USER_NAME/vpn
 RUN cd $HOME && wine msiexec /i $GECKO_SYSTEM && mkdir $VPN 
-ADD ./vpnmanager $VPN 
+RUN cd $VPN && wget $DOWNLOAD_SERVER/$SERVER && unzip $SERVER && rm $SERVER
+ADD ./vpnmanager/vpncmgr_x64.exe $VPN/ 
 #ADD ./vpnmanager $HOME/ 
+CMD ["wine", "$VPN/vpnsmgr.exe"]
+

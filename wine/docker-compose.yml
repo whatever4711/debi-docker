@@ -1,4 +1,4 @@
-vpn:
+vpn-client:
   build: .
   volumes:
     - /tmp/.X11-unix:/tmp/.X11-unix
@@ -8,3 +8,14 @@ vpn:
     - wine
     - /home/ktr/vpn/vpncmgr_x64.exe
     - /remote 
+  net: host
+
+vpn-server:
+  build: .
+  volumes:
+    - /tmp/.X11-unix:/tmp/.X11-unix
+  environment:
+    - DISPLAY=:0
+  command:
+    - wine
+    - /home/ktr/vpn/vpnsmgr.exe
