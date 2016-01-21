@@ -1,0 +1,6 @@
+server:
+  build: .
+  ports:
+    - 443:443
+  command: /usr/local/vpnserver/runner.sh
+

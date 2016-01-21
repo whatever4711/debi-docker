@@ -1,7 +1,7 @@
 FROM debian:latest
 MAINTAINER Marcel Grossmann <whatever4711@gmail.com>
 
-ENV VERSION v4.15-9546-beta-2015.04.05
+ENV VERSION v4.19-9599-beta-2015.10.19
 WORKDIR /usr/local/vpnserver
 
 RUN apt-get update && \
@@ -16,7 +16,7 @@ RUN apt-get update && \
 
 ADD runner.sh /usr/local/vpnserver/runner.sh
 RUN chmod 755 /usr/local/vpnserver/runner.sh
-ADD vpn_server.config /etc/vpnserver/vpn_server.config
+#ADD vpn_server.config /etc/vpnserver/vpn_server.config
 
 EXPOSE 443/tcp 992/tcp 1194/tcp 1194/udp 5555/tcp 500/udp 4500/udp
 
