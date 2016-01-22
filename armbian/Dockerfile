@@ -15,6 +15,8 @@ RUN chmod +x $DIR/compile.sh
 RUN sed -i -e 's#keys.gnupg.net#hkp://keys.gnupg.net:80#g' $DIR/lib/general.sh
 RUN sed -i -e 's#keys.gnupg.net#hkp://keys.gnupg.net:80#g' $DIR/lib/upgrade.sh
 
+RUN sed -i -e 's#git://git.denx.de/u-boot.git#http://git.denx.de/u-boot.git#g' $DIR/lib/configuration.sh
+
 #ENTRYPOINT ["$DIR/compile.sh"]
 
 
