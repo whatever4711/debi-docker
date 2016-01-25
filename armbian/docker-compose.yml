@@ -1,11 +1,13 @@
 cubietruck:
   build: .
+  privileged: true
   volumes:
-    - compiled:/armbian/compiled
+    - ./compiled:/armbian/compiled
   command: BRANCH=next BOARD=cubietruck KERNEL_ONLY=no KERNEL_CONFIGURE=no BUILD_DESKTOP=no PROGRESS_DISPLAY=plain RELEASE=jessie
 
 lamobo-r1:
   build: .
+  privileged: true
   volumes:
-    - compiled:/armbian/compiled
+    - ./compiled:/armbian/compiled
   command: BRANCH=next BOARD=lamobo-r1 KERNEL_ONLY=no KERNEL_CONFIGURE=no BUILD_DESKTOP=no PROGRESS_DISPLAY=plain RELEASE=jessie

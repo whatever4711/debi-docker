@@ -1,2 +1,10 @@
 #*.config
-#.dockerignore
+.dockerignore
+.vagrant
+
+armbian/compiled
+armbian/compile.sh
+armbian/lib
+armbian/output
+armbian/sources 
+armbian/userpatches
