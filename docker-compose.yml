@@ -1,0 +1,8 @@
+tor:
+  image: jess/tor-browser
+  volumes:
+    - /tmp/.X11-unix:/tmp/.X11-unix
+  environment:
+    - DISPLAY=unix$DISPLAY
+  devices:
+    - /dev/snd
