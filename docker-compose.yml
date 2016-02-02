@@ -1,5 +1,5 @@
 tor:
-  image: jess/tor-browser
+  image: jess/tor-browser:hardened
   volumes:
     - /tmp/.X11-unix:/tmp/.X11-unix
   environment:
