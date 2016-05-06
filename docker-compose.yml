@@ -1,8 +1,35 @@
-tor:
-  image: jess/tor-browser:hardened
-  volumes:
-    - /tmp/.X11-unix:/tmp/.X11-unix
-  environment:
-    - DISPLAY=unix$DISPLAY
-  devices:
-    - /dev/snd
+version: '2'
+
+services:
+  tor:
+    image: jess/tor-browser:hardened
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - DISPLAY=unix$DISPLAY
+    devices:
+      - /dev/snd
+
+  firefox:
+    image: jess/firefox
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - DISPLAY=unix$DISPLAY
+    devices:
+      - /dev/snd
+      - /dev/video0
+      - /dev/dri
+  
+  chrome:
+    image: jess/chrome
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - DISPLAY=unix$DISPLAY
+    devices:
+      - /dev/snd
+      - /dev/video0
+      - /dev/dri

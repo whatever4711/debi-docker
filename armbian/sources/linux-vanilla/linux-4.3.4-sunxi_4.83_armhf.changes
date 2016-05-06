@@ -1,0 +1,35 @@
+Format: 1.8
+Date: Mon, 25 Jan 2016 14:35:15 +0100
+Source: linux-4.3.4-sunxi
+Binary: linux-image-next-sunxi linux-headers-next-sunxi linux-firmware-image-next-sunxi linux-dtb-next-sunxi linux-libc-dev-next-sunxi
+Architecture: armhf all
+Version: 4.83
+Distribution: rosa
+Urgency: low
+Maintainer: Igor Pecovnik <igor.pecovnik@****l.com>
+Changed-By: Igor Pecovnik <igor.pecovnik@****l.com>
+Description: 
+ linux-dtb-next-sunxi - Linux DTB, version 4.3.4-sunxi
+ linux-firmware-image-next-sunxi - Linux kernel firmware, version 4.3.4-sunxi
+ linux-headers-next-sunxi - Linux kernel headers for 4.3.4-sunxi on ${kernel:debarch}
+ linux-image-next-sunxi - Linux kernel, version 4.3.4-sunxi
+ linux-libc-dev-next-sunxi - Linux support headers for userspace development
+Changes: 
+ linux-4.3.4-sunxi (4.83) rosa; urgency=low
+ .
+   * Custom built Linux kernel.
+Checksums-Sha1: 
+ f106045cda8d8dc45af1d5e2d1aa85df5af972f3 52786 linux-firmware-image-next-sunxi_4.83_armhf.deb
+ 61803e9e4778933c158aff9f8a01efcf719d57c7 49760 linux-dtb-next-sunxi_4.83_armhf.deb
+ 2b8b908c43acf68d8a44b0c52a094d39a0050d11 6815576 linux-headers-next-sunxi_4.83_armhf.deb
+ 15d96ff1b61881e1065226d897de3e9ec1ba8a8e 12482752 linux-image-next-sunxi_4.83_armhf.deb
+Checksums-Sha256: 
+ 31b275ce1b2850acd4762953f0bd561eb97a95e9b551388b667f3a4d77d67e85 52786 linux-firmware-image-next-sunxi_4.83_armhf.deb
+ 6060bffcd20daf8939f8058d602c8771406eca2d1e7d4c9deeccdd3bb42fa53a 49760 linux-dtb-next-sunxi_4.83_armhf.deb
+ 72765aa790ea9e9c778c51962a9b8adf812c2abd7c2a0c335684b0003930d92b 6815576 linux-headers-next-sunxi_4.83_armhf.deb
+ a60db96edbd27a0df7fd6423be24f7807091ea98d30b613de1c401e56c179ea9 12482752 linux-image-next-sunxi_4.83_armhf.deb
+Files: 
+ 3f688e45a1d204be0351dfe555bd7fd5 52786 kernel optional linux-firmware-image-next-sunxi_4.83_armhf.deb
+ b69558f3af906553ec9960a80a76952b 49760 kernel optional linux-dtb-next-sunxi_4.83_armhf.deb
+ bcc019fe5bac00366ecabe67a3e9448e 6815576 kernel optional linux-headers-next-sunxi_4.83_armhf.deb
+ ccb5d52a2fd8d1d5ae45c54777f417e0 12482752 kernel optional linux-image-next-sunxi_4.83_armhf.deb
