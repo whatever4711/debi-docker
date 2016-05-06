@@ -1,7 +1,6 @@
 FROM ubuntu:15.04
 MAINTAINER Milo Kim <woogyom.kim@gmail.com>
 
-ENV gcc https://releases.linaro.org/components/toolchain/binaries/latest-5/aarch64-linux-gnu/gcc-linaro-5.3-2016.02-x86_64_aarch64-linux-gnu.tar.xz
 ENV home /home/pine64
 RUN mkdir -p ${home}
 WORKDIR ${home}
@@ -10,18 +9,20 @@ WORKDIR ${home}
 RUN apt-get update && apt-get install -y \
 	wget curl git xz-utils build-essential bc python
 
-# Download ARM64 cross compiler
-RUN wget -q -O gcc-linaro.tar.xz ${gcc}
-RUN tar xf ./gcc-linaro.tar.xz && rm gcc-linaro.tar.xz && mv gcc-linaro-* gcc-linaro       
-ENV PATH ${home}/gcc-linaro/bin/:$PATH
-
 # Download mkbootimg
 RUN wget https://android.googlesource.com/platform/system/core/+archive/master/mkbootimg.tar.gz
 RUN tar xf mkbootimg.tar.gz
 ENV PATH ${home}:$PATH
 
 # Download files for building pine64 kernel
-RUN git clone --branch a64-v3 --single-branch https://github.com/apritzel/linux.git
+RUN git clone --branch a64-v4 --single-branch https://github.com/apritzel/linux.git
+
+# Download ARM64 cross compiler
+ENV gcc https://releases.linaro.org/components/toolchain/binaries/latest-5/aarch64-linux-gnu/gcc-linaro-5.3-2016.02-x86_64_aarch64-linux-gnu.tar.xz
+RUN wget -q -O gcc-linaro.tar.xz ${gcc}
+RUN tar xf ./gcc-linaro.tar.xz && rm gcc-linaro.tar.xz && mv gcc-linaro-* gcc-linaro       
+ENV PATH ${home}/gcc-linaro/bin/:$PATH
+
 WORKDIR ${home}/linux
 
 # Download prebuilt ramdisk from Debian daily snapshot
