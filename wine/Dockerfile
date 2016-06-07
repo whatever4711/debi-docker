@@ -1,14 +1,15 @@
-FROM ubuntu:latest 
+FROM ubuntu:trusty
 MAINTAINER Marcel Grossmann <whatever4711@gmail.com>
 
 USER root
 
 # Define which versions we need
-ENV WINE_PPA_VERSION 1.7
+ENV WINE_PPA_VERSION 1.8
 ENV WINE_MONO_VERSION 4.5.6
-ENV WINE_GECKO_VERSION 2.36
-ENV DOWNLOAD_SERVER http://www.softether-download.com/files/softether/v4.19-9599-beta-2015.10.19-tree/Windows/Admin_Tools/VPN_Server_Manager_and_Command-line_Utility_Package
-ENV SERVER softether-vpn_admin_tools-v4.19-9599-beta-2015.10.19-win32.zip
+ENV WINE_GECKO_VERSION 2.40
+ENV VERSION v4.21-9613-beta-2016.04.24
+ENV DOWNLOAD_SERVER http://www.softether-download.com/files/softether/${VERSION}-tree/Windows/Admin_Tools/VPN_Server_Manager_and_Command-line_Utility_Package
+ENV SERVER softether-vpn_admin_tools-${VERSION}-win32.zip
 ENV CLIENT xxx
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -50,7 +51,7 @@ RUN apt-get remove -y --purge software-properties-common \
 ENV USER_NAME ktr
 
 # Replace 1000 with your user / group id
-RUN export uid=1001 gid=1001 && \
+RUN export uid=1000 gid=1000 && \
     mkdir -p /home/$USER_NAME && \
     echo "$USER_NAME:x:${uid}:${gid}:$USER_NAME,,,:/home/$USER_NAME:/bin/bash" >> /etc/passwd && \
     echo "$USER_NAME:x:${uid}:" >> /etc/group && \
