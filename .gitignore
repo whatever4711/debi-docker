@@ -7,4 +7,5 @@ armbian/compile.sh
 armbian/lib
 armbian/output
 armbian/sources 
+armbian/sources/*
 armbian/userpatches
