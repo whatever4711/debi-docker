@@ -1,23 +1,26 @@
-vpn-client:
-# image: whatever4711/debi-wine
-  build: .
-  volumes:
-    - /tmp/.X11-unix:/tmp/.X11-unix:ro
-  environment:
-    - DISPLAY=:0
-  command:
-    - wine
-    - /home/ktr/vpn/vpncmgr_x64.exe
-    - /remote 
-  net: host
+version: '2'
 
-vpn-server:
-# image: whatever4711/debi-wine
-  build: .
-  volumes:
-    - /tmp/.X11-unix:/tmp/.X11-unix:ro
-  environment:
-    - DISPLAY=:0
-  command:
-    - wine
-    - /home/ktr/vpn/vpnsmgr.exe
+services:
+  vpn-client:
+  # image: whatever4711/debi-wine
+    build: .
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:ro
+    environment:
+      - DISPLAY=:0
+    command:
+      - wine
+      - /home/ktr/vpn/vpncmgr_x64.exe
+      - /remote 
+    network_mode: host
+  
+  vpn-server:
+  # image: whatever4711/debi-wine
+    build: .
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:ro
+    environment:
+      - DISPLAY=:0
+    command:
+      - wine
+      - /home/ktr/vpn/vpnsmgr.exe
