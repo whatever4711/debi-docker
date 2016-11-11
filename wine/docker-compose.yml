@@ -2,6 +2,7 @@ version: '2'
 
 services:
   vpn-client:
+    restart: always
   # image: whatever4711/debi-wine
     build: .
     volumes:

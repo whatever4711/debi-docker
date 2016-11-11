@@ -1,13 +1,39 @@
-cubietruck:
-  build: .
-  privileged: true
-  volumes:
-    - ./compiled:/armbian/compiled
-  command: BRANCH=next BOARD=cubietruck KERNEL_ONLY=no KERNEL_CONFIGURE=no BUILD_DESKTOP=no PROGRESS_DISPLAY=plain RELEASE=jessie
+version: '2'
 
-lamobo-r1:
-  build: .
-  privileged: true
-  volumes:
-    - ./compiled:/armbian/compiled
-  command: BRANCH=next BOARD=lamobo-r1 KERNEL_ONLY=no KERNEL_CONFIGURE=no BUILD_DESKTOP=no PROGRESS_DISPLAY=plain RELEASE=jessie
+services: 
+  cubietruck:
+    build: .
+    image: armbian
+    privileged: true
+#    volumes:
+#      - ./compiled:/armbian/compiled
+    entrypoint: ./compile.sh
+    command: 
+      - BRANCH=next
+      - BOARD=cubietruck
+      - KERNEL_ONLY=no
+      - KERNEL_CONFIGURE=no
+      - BUILD_DESKTOP=no
+      - PROGRESS_DISPLAY=plain
+      - RELEASE=jessie
+
+  lamobo-r1:
+    build: .
+    image: armbian
+    privileged: true
+    volumes:
+      - ./compiled:/armbian/compiled
+    command: BRANCH=next BOARD=lamobo-r1 KERNEL_ONLY=no KERNEL_CONFIGURE=no BUILD_DESKTOP=no PROGRESS_DISPLAY=plain RELEASE=jessie
+
+  nanopineo:
+    build: .
+    image: armbian
+    privileged: true
+    stdin_open: true
+    tty: true
+    network_mode: "host"
+    volumes:
+      - ./compiled:/armbian/compiled
+      - ./output:/armbian/output
+    entrypoint: /bin/bash
+    #command: BRANCH=next BOARD=nanopineo KERNEL_ONLY=no KERNEL_CONFIGURE=no BUILD_DESKTOP=no PROGRESS_DISPLAY=plain RELEASE=jessie
