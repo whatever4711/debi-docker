@@ -9,3 +9,5 @@ armbian/output
 armbian/sources 
 armbian/sources/*
 armbian/userpatches
+
+*.log
